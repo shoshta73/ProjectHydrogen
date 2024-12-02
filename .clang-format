@@ -1,0 +1,7 @@
+BasedOnStyle: Mozilla
+IndentWidth: 2
+TabWidth: 2
+UseTab: ForContinuationAndIndentation
+ColumnLimit: 120
+BreakBeforeBraces: Allman
+FixNamespaceComments: true

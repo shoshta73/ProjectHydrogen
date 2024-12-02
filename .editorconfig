@@ -13,3 +13,17 @@ max_line_length = 120
 
 [*.md]
 trim_trailing_whitespace = false
+
+[CMakeLists.txt]
+indent_style = tab
+
+[*.{cmake,cmake.in}]
+indent_style = tab
+
+# C Source files
+[*.{c,h}]
+indent_style = tab
+
+# C++ Source files
+[*.{cc,hh,cxx,hxx,cpp,hpp,inl,inc}]
+indent_style = tab
