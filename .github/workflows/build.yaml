@@ -57,8 +57,7 @@ jobs:
       - name: Install Dependencies
         if: matrix.os == 'ubuntu-latest'
         run: >
-          sudo apt-get update
-          sudo apt-get install -y \
+          sudo apt update && sudo apt install -y \
             libxrandr-dev \
             libx11-dev \
             libxinerama-dev \
