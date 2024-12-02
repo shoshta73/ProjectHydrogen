@@ -11,6 +11,7 @@ if(NOT DEFINED CMAKE_BUILD_TYPE)
 	set(CMAKE_BUILD_TYPE "Release")
 endif()
 
+add_subdirectory(vendor/glad)
 add_subdirectory(vendor/glfw)
 
 set(CMAKE_C_STANDARD 17)
@@ -28,6 +29,7 @@ add_executable(
 )
 
 set(PROJECT_HYDROGEN_LINK_LIBRARIES
+	glad
 	glfw
 	opengl32.lib
 )
