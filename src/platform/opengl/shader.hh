@@ -13,7 +13,7 @@ class Shader
 public:
 	Shader(const char* vertexSource, const char* fragmentSource);
 	~Shader() { glDeleteProgram(ID); }
-	void use() const { glUseProgram(ID); }
+	void Use() const { glUseProgram(ID); }
 
 private:
 	unsigned int ID;
