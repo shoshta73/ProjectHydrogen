@@ -7,7 +7,7 @@
 opengl_shader_t
 opengl_shader_create(const char* vertexSource, const char* fragmentSource)
 {
-	uint32_t vertexShader = opengl_compile_shader(GL_VERTEX_SHADER, vertexSource);
+	uint32_t vertexShader = default_vertex_shader();
 	uint32_t fragmentShader = opengl_compile_shader(GL_FRAGMENT_SHADER, fragmentSource);
 
 	uint32_t ID = glCreateProgram();

@@ -59,6 +59,8 @@ extern "C"
 
 	void opengl_shader_use(opengl_shader_t* shader);
 
+	uint32_t default_vertex_shader();
+
 #ifdef __cplusplus
 }
 #endif
