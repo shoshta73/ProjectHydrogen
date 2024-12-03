@@ -1,3 +1,6 @@
+#include "platform/opengl/shader.hh"
+#include <platform/platform.hh>
+
 #include <glad/glad.h>
 
 #include <GLFW/glfw3.h>
@@ -93,51 +96,7 @@ main()
 	// Unbind the VAO
 	glBindVertexArray(0);
 
-	// Compile the vertex shader
-	unsigned int vertexShader = glCreateShader(GL_VERTEX_SHADER);
-	glShaderSource(vertexShader, 1, &vertexShaderSource, nullptr);
-	glCompileShader(vertexShader);
-
-	// Check for compile errors
-	int success;
-	char infoLog[512];
-	glGetShaderiv(vertexShader, GL_COMPILE_STATUS, &success);
-	if (!success)
-	{
-		glGetShaderInfoLog(vertexShader, 512, nullptr, infoLog);
-		std::cerr << "Error: Vertex shader compilation failed\n" << infoLog << std::endl;
-	}
-
-	// Compile the fragment shader
-	unsigned int fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
-	glShaderSource(fragmentShader, 1, &fragmentShaderSource, nullptr);
-	glCompileShader(fragmentShader);
-
-	// Check for compile errors
-	glGetShaderiv(fragmentShader, GL_COMPILE_STATUS, &success);
-	if (!success)
-	{
-		glGetShaderInfoLog(fragmentShader, 512, nullptr, infoLog);
-		std::cerr << "Error: Fragment shader compilation failed\n" << infoLog << std::endl;
-	}
-
-	// Link shaders to create a shader program
-	unsigned int shaderProgram = glCreateProgram();
-	glAttachShader(shaderProgram, vertexShader);
-	glAttachShader(shaderProgram, fragmentShader);
-	glLinkProgram(shaderProgram);
-
-	// Check for linking errors
-	glGetProgramiv(shaderProgram, GL_LINK_STATUS, &success);
-	if (!success)
-	{
-		glGetProgramInfoLog(shaderProgram, 512, nullptr, infoLog);
-		std::cerr << "Error: Shader program linking failed\n" << infoLog << std::endl;
-	}
-
-	// Delete the shaders as they're linked into the program now and no longer needed
-	glDeleteShader(vertexShader);
-	glDeleteShader(fragmentShader);
+	ProjectHydrogen::Shader shader(vertexShaderSource, fragmentShaderSource);
 
 	// Render loop
 	while (!glfwWindowShouldClose(window))
@@ -147,7 +106,7 @@ main()
 		glClear(GL_COLOR_BUFFER_BIT);
 
 		// Draw the square
-		glUseProgram(shaderProgram);
+		shader.use();
 		glBindVertexArray(VAO);
 		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 
@@ -160,7 +119,6 @@ main()
 	glDeleteVertexArrays(1, &VAO);
 	glDeleteBuffers(1, &VBO);
 	glDeleteBuffers(1, &EBO);
-	glDeleteProgram(shaderProgram);
 
 	glfwDestroyWindow(window);
 	glfwTerminate();

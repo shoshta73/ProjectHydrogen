@@ -1,8 +1,10 @@
 cmake_minimum_required(VERSION 3.16)
 
+list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
+
 project(
 	"ProjectHydrogen"
-	VERSION 0.0.1
+	VERSION 0.0.2
 	DESCRIPTION "Game from scratch in C++."
 	LANGUAGES C CXX
 )
@@ -26,6 +28,16 @@ add_executable(
 	${PROJECT_NAME}
 	${SOURCES}
 	${HEADERS}
+)
+
+set(PROJECT_HYDROGEN_INCLUDE_DIRS
+	src
+)
+
+target_include_directories(
+	${PROJECT_NAME}
+	PRIVATE
+	${PROJECT_HYDROGEN_INCLUDE_DIRS}
 )
 
 set(PROJECT_HYDROGEN_LINK_LIBRARIES
