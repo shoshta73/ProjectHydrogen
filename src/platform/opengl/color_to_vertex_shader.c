@@ -9,6 +9,7 @@ opengl_color_to_vertex_shader(opengl_color_t* color)
 {
 	char _buffer[256] = { 0 };
 	char* buffer = _buffer;
+	char* template = "#version 330 core\nout vec4 FragColor;\nvoid main() {\nFragColor = vec4(%f, %f, %f, %f);\n}";
 
 	if (color == NULL)
 	{
@@ -17,13 +18,8 @@ opengl_color_to_vertex_shader(opengl_color_t* color)
 		return 0;
 	}
 
-	size_t len = snprintf(buffer,
-												sizeof(_buffer),
-												"#version 330 core\nout vec4 FragColor;\nvoid main() {\nFragColor = vec4(%f, %f, %f, %f);\n}",
-												color->r / 255.0f,
-												color->g / 255.0f,
-												color->b / 255.0f,
-												color->a / 255.0f);
+	size_t len = snprintf(
+		buffer, sizeof(_buffer), template, color->r / 255.0f, color->g / 255.0f, color->b / 255.0f, color->a / 255.0f);
 
 	if (len >= sizeof(_buffer))
 	{
