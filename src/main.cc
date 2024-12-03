@@ -1,5 +1,5 @@
 #include <platform/opengl/mesh.hh>
-#include <platform/opengl/shader.hh>
+#include <platform/opengl/shader.h>
 #include <platform/platform.hh>
 
 #include <glad/glad.h>
@@ -93,8 +93,8 @@ main()
 
 	ProjectHydrogen::Mesh mesh(vertices, indices);
 	ProjectHydrogen::Mesh mesh2(vertices2, indices);
-	ProjectHydrogen::Shader shader(vertexShaderSource, fragmentShaderSource);
-	ProjectHydrogen::Shader shader2(vertexShaderSource, fragmentShaderSource2);
+	opengl_shader_t shader = opengl_shader_create(vertexShaderSource, fragmentShaderSource);
+	opengl_shader_t shader2 = opengl_shader_create(vertexShaderSource, fragmentShaderSource2);
 
 	// Render loop
 	while (!glfwWindowShouldClose(window))
@@ -103,11 +103,10 @@ main()
 		glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT);
 
-		// Draw the square
-		shader.Use();
+		opengl_shader_use(&shader);
 		mesh.Draw();
 
-		shader2.Use();
+		opengl_shader_use(&shader2);
 		mesh2.Draw();
 
 		// Swap buffers and poll events
