@@ -1,4 +1,4 @@
-#include <platform/opengl/mesh.hh>
+#include <platform/opengl/mesh.h>
 #include <platform/opengl/shader.h>
 #include <platform/platform.hh>
 
@@ -7,7 +7,6 @@
 #include <GLFW/glfw3.h>
 
 #include <iostream>
-#include <vector>
 
 const char* vertexShaderSource = R"(
     #version 330 core
@@ -70,7 +69,7 @@ main()
 	glViewport(0, 0, 800, 600);
 	glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
 
-	std::vector<float> vertices = {
+	float vertices[] = {
 		// Positions
 		-0.05f, -0.05f, 0.0f, // Bottom-left
 		0.05f,  -0.05f, 0.0f, // Bottom-right
@@ -78,7 +77,7 @@ main()
 		-0.05f, 0.05f,  0.0f  // Top-left
 	};
 
-	std::vector<float> vertices2 = {
+	float vertices2[] = {
 		// Positions
 		0.45f, 0.45f, 0.0f, // Bottom-left
 		0.55f, 0.45f, 0.0f, // Bottom-right
@@ -86,13 +85,13 @@ main()
 		0.45f, 0.55f, 0.0f  // Top-left
 	};
 
-	std::vector<unsigned int> indices = {
+	uint32_t indices[] = {
 		0, 1, 2, // First triangle
 		2, 3, 0  // Second triangle
 	};
 
-	ProjectHydrogen::Mesh mesh(vertices, indices);
-	ProjectHydrogen::Mesh mesh2(vertices2, indices);
+	opengl_mesh_t mesh = opengl_mesh_create(vertices, 12, indices, 6);
+	opengl_mesh_t mesh2 = opengl_mesh_create(vertices2, 12, indices, 6);
 	opengl_shader_t shader = opengl_shader_create(vertexShaderSource, fragmentShaderSource);
 	opengl_shader_t shader2 = opengl_shader_create(vertexShaderSource, fragmentShaderSource2);
 
@@ -104,10 +103,10 @@ main()
 		glClear(GL_COLOR_BUFFER_BIT);
 
 		opengl_shader_use(&shader);
-		mesh.Draw();
+		opengl_mesh_draw(&mesh);
 
 		opengl_shader_use(&shader2);
-		mesh2.Draw();
+		opengl_mesh_draw(&mesh2);
 
 		// Swap buffers and poll events
 		glfwSwapBuffers(window);

@@ -10,8 +10,11 @@
  *
  * Description: OpenGL shader abstraction
  *
- * structs: (name - short description)
- *   opengl_shader_t - OpenGL shader
+ * 	structs: (name - short description)
+ * 	  opengl_shader - OpenGL shader
+ *
+ * types: (name - short description - notes)
+ *   opengl_shader_t - OpenGL shader (alias of opengl_shader)
  *
  * functions: (name - short description)
  *   opengl_shader_create - create shader
