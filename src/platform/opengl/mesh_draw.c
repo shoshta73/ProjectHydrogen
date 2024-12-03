@@ -5,7 +5,9 @@
 void
 opengl_mesh_draw(opengl_mesh_t* mesh)
 {
-	opengl_mesh_bind(mesh);
+	// Bind VAO
+	glBindVertexArray(mesh->VAO);
 	glDrawElements(GL_TRIANGLES, mesh->index_count, GL_UNSIGNED_INT, 0);
-	opengl_mesh_unbind(mesh);
+	// Unbind VAO
+	glBindVertexArray(0);
 }

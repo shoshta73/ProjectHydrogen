@@ -1,36 +1,23 @@
 #include <platform/opengl/mesh.h>
 #include <platform/opengl/shader.h>
-#include <platform/platform.hh>
+#include <platform/platform.h>
 
+//clang-format off
 #include <glad/glad.h>
-
+//clang-format on
 #include <GLFW/glfw3.h>
 
-#include <iostream>
+#include <stdio.h>
+#include <stdlib.h>
 
-const char* vertexShaderSource = R"(
-    #version 330 core
-    layout (location = 0) in vec3 aPos;
-    void main() {
-        gl_Position = vec4(aPos, 1.0);
-    }
-)";
+const char* vertexShaderSource =
+	"#version 330 core\nlayout (location = 0) in vec3 aPos;\nvoid main() {\ngl_Position = vec4(aPos, 1.0);\n}";
 
-const char* fragmentShaderSource = R"(
-    #version 330 core
-    out vec4 FragColor;
-    void main() {
-        FragColor = vec4(1.0, 0.0, 0.0, 1.0); // Red color
-    }
-)";
+const char* fragmentShaderSource =
+	"#version 330 core\nout vec4 FragColor;\nvoid main() {\nFragColor = vec4(1.0, 0.0, 0.0, 1.0);\n}";
 
-const char* fragmentShaderSource2 = R"(
-    #version 330 core
-    out vec4 FragColor;
-    void main() {
-        FragColor = vec4(1.0, 1.0, 0.0, 1.0); // Yellow color
-    }
-)";
+const char* fragmentShaderSource2 =
+	"#version 330 core\nout vec4 FragColor;\nvoid main() {\nFragColor = vec4(1.0, 1.0, 0.0, 1.0);\n}\n";
 
 void
 framebuffer_size_callback(GLFWwindow* window, int width, int height)
@@ -43,7 +30,7 @@ main()
 {
 	if (!glfwInit())
 	{
-		std::cerr << "Failed to initialize GLFW" << std::endl;
+		printf("Failed to initialize GLFW\n");
 		return -1;
 	}
 
@@ -51,10 +38,10 @@ main()
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
-	GLFWwindow* window = glfwCreateWindow(800, 600, "Hello Square", nullptr, nullptr);
+	GLFWwindow* window = glfwCreateWindow(800, 600, "Hello Square", NULL, NULL);
 	if (!window)
 	{
-		std::cerr << "Failed to create GLFW window" << std::endl;
+		printf("Failed to create GLFW window\n");
 		glfwTerminate();
 		return -1;
 	}
@@ -62,7 +49,7 @@ main()
 
 	if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
 	{
-		std::cerr << "Failed to initialize GLAD" << std::endl;
+		printf("Failed to initialize GLAD\n");
 		return -1;
 	}
 

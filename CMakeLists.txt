@@ -4,9 +4,9 @@ list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
 
 project(
 	"ProjectHydrogen"
-	VERSION 0.0.2
+	VERSION 0.0.3
 	DESCRIPTION "Game from scratch in C++."
-	LANGUAGES C CXX
+	LANGUAGES C
 )
 
 if(NOT DEFINED CMAKE_BUILD_TYPE)
@@ -18,11 +18,9 @@ add_subdirectory(vendor/glfw)
 
 set(CMAKE_C_STANDARD 17)
 set(CMAKE_C_STANDARD_REQUIRED ON)
-set(CMAKE_CXX_STANDARD 20)
-set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-file(GLOB_RECURSE SOURCES "src/*.cc" "src/*.cpp" "src/*.cxx" "src/*.c")
-file(GLOB_RECURSE HEADERS "src/*.hh" "src/*.hpp" "src/*.hxx" "src/*.h")
+file(GLOB_RECURSE SOURCES "src/*.c")
+file(GLOB_RECURSE HEADERS "src/*.h")
 
 add_executable(
 	${PROJECT_NAME}
