@@ -38,11 +38,28 @@ target_include_directories(
 	${PROJECT_HYDROGEN_INCLUDE_DIRS}
 )
 
+# Common libraries
 set(PROJECT_HYDROGEN_LINK_LIBRARIES
 	glad
 	glfw
-	opengl32.lib
 )
+
+# Check for Windows
+if(WIN32)
+	list(APPEND PROJECT_HYDROGEN_LINK_LIBRARIES opengl32.lib)
+# Check for Linux
+elseif(UNIX AND NOT APPLE)
+	list(APPEND PROJECT_HYDROGEN_LINK_LIBRARIES GL)
+# Check for macOS
+elseif(APPLE)
+# Unsupported platform
+else()
+    message(FATAL_ERROR "Unsupported platform. Only Windows, Linux, and macOS are supported.")
+endif()
+
+if()
+	list(APPEND PROJECT_HYDROGEN_LINK_LIBRARIES opengl32.lib)
+endif()
 
 target_link_libraries(
 	${PROJECT_NAME}
