@@ -49,10 +49,11 @@ if(WIN32)
 	list(APPEND PROJECT_HYDROGEN_LINK_LIBRARIES opengl32.lib)
 # Check for Linux
 elseif(UNIX AND NOT APPLE)
+	set(GLFW_BUILD_WAYLAND ON)
+	set(GLFW_BUILD_X11 OFF)
 	list(APPEND PROJECT_HYDROGEN_LINK_LIBRARIES GL)
 # Check for macOS
 elseif(APPLE)
-# Unsupported platform
 else()
     message(FATAL_ERROR "Unsupported platform. Only Windows, Linux, and macOS are supported.")
 endif()
