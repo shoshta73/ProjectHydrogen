@@ -5,20 +5,8 @@
 #include <stdio.h>
 
 opengl_shader_t
-opengl_shader_create(const char* vertex_source, const char* fragment_source)
+opengl_shader_from_color_shader(uint32_t vertex_shader, uint32_t fragment_shader)
 {
-	uint32_t vertex_shader = 0;
-	if (vertex_source == NULL)
-	{
-		vertex_shader = default_vertex_shader();
-	}
-	else
-	{
-		vertex_shader = opengl_compile_shader(GL_VERTEX_SHADER, vertex_source);
-	}
-
-	uint32_t fragment_shader = opengl_compile_shader(GL_FRAGMENT_SHADER, fragment_source);
-
 	uint32_t ID = glCreateProgram();
 	glAttachShader(ID, vertex_shader);
 	glAttachShader(ID, fragment_shader);

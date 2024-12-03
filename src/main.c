@@ -1,10 +1,10 @@
+#include <platform/opengl/color.h>
 #include <platform/opengl/mesh.h>
 #include <platform/opengl/shader.h>
 #include <platform/platform.h>
 
-//clang-format off
 #include <glad/glad.h>
-//clang-format on
+#define GLFW_INCLUDE_NONE
 #include <GLFW/glfw3.h>
 
 #include <stdio.h>
@@ -72,6 +72,16 @@ main()
 		0.45f, 0.55f, 0.0f  // Top-left
 	};
 
+	opengl_color_t color = { .r = 255, .g = 0, .b = 255, .a = 255 };
+
+	float vertices3[] = {
+		// Positions
+		-0.55f, -0.55f, 0.0f, // Bottom-left
+		-0.45f, -0.55f, 0.0f, // Bottom-right
+		-0.45f, -0.45f, 0.0f, // Top-right
+		-0.55f, -0.45f, 0.0f  // Top-left
+	};
+
 	uint32_t indices[] = {
 		0, 1, 2, // First triangle
 		2, 3, 0  // Second triangle
@@ -79,8 +89,11 @@ main()
 
 	opengl_mesh_t mesh = opengl_mesh_create(vertices, 12, indices, 6);
 	opengl_mesh_t mesh2 = opengl_mesh_create(vertices2, 12, indices, 6);
+	opengl_mesh_t mesh3 = opengl_mesh_create(vertices3, 12, indices, 6);
 	opengl_shader_t shader = opengl_shader_create(vertexShaderSource, fragmentShaderSource);
 	opengl_shader_t shader2 = opengl_shader_create(vertexShaderSource, fragmentShaderSource2);
+	opengl_shader_t shader3 =
+		opengl_shader_from_color_shader(default_vertex_shader(), opengl_color_to_vertex_shader(&color));
 
 	// Render loop
 	while (!glfwWindowShouldClose(window))
@@ -94,6 +107,9 @@ main()
 
 		opengl_shader_use(&shader2);
 		opengl_mesh_draw(&mesh2);
+
+		opengl_shader_use(&shader3);
+		opengl_mesh_draw(&mesh3);
 
 		// Swap buffers and poll events
 		glfwSwapBuffers(window);
